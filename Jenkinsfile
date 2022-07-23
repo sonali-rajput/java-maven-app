@@ -18,7 +18,7 @@
 
         stage("deploy") {
             steps {
-                echo 'deplloying the app..
+                echo 'deplloying the app..'
             }
         }
     }
