@@ -1,32 +1,35 @@
-def gv
 
 pipeline {
-    agent any
+    agent none
     stages {
-        stage("init") {
+        stage("test") {
             steps {
                 script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-        stage("build jar") {
-            steps {
-                script {
-                    echo "building jar"
+                    echo "testing app"
+                    echo "executing pipeline for branch $BRANCH_NAME"
                     //gv.buildJar()
                 }
             }
         }
-        stage("build image") {
+        stage("build") {
+            when {
+                expression {
+                    BRANCH_NAME == 'main'
+                }
+            }
             steps {
                 script {
-                    echo "building image"
+                    echo "building app"
                     //gv.buildImage()
                 }
             }
         }
         stage("deploy") {
+            when {
+                expression {
+                    BRANCH_NAME == 'main'
+                }
+            }
             steps {
                 script {
                     echo "deploying"
